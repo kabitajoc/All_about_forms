@@ -1,0 +1,45 @@
+import "./App.css";
+import { Formik } from "formik";
+import { TextField, Button } from "@mui/material";
+import * as yup from "yup";
+import InputField from "./InputField";
+const validationSchema = yup.object({
+  name: yup.string().required("Name is Required"),
+  email: yup.string().email().required("Email is required"),
+});
+
+function App() {
+  return (
+    <>
+      <div>
+      <Formik
+        initialValues={{
+          name: "",
+          email: "",
+        }}
+        onSubmit={(values) => {
+          alert(JSON.stringify(values, null, 2));
+        }}
+        validationSchema={validationSchema}
+      >
+        {(formik) => (
+          <form onSubmit={formik.handleSubmit}>
+            <Field name="name" label="Name" type="text"/>
+            <Button
+              type="submit"
+              colors="primary"
+              variant="contained"
+              fullWidth
+              style={{ marginTop: 30 }}
+            >
+              Submit
+            </Button>
+          </form>
+        )}
+      </Formik>
+      </div>
+    </>
+  );
+}
+
+export default App;
